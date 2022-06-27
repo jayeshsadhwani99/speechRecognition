@@ -6,6 +6,7 @@
 # 3. Wait for the transcription to finish (keep polling the API)
 # 4. Get the transcription (save)
 
+from time import time
 import requests
 import sys
 from api_secrets import API_KEY_ASSEMBLYAI
@@ -53,6 +54,9 @@ def transcription_result_url(audio_url):
             return response, None
         elif response['status'] == 'error':
             return response, response["error"]
+
+        print("Waiting 30 seconds for transcription to finish...")
+        time.sleep(30)
 
 # Step 4
 def save_transcript(audio_url):
